@@ -7,5 +7,6 @@
         public string? Senha { get; set; }
         public int PontosTotal {  get; set; }
 
+        public int SalaId { get; set; }
     }
 }

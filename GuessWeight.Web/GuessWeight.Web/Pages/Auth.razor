@@ -1,0 +1,14 @@
+﻿@page "/Auth"
+@inject IAuthServices authServices
+<h3>Auth</h3>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        authServices.Login(new LoginUsuarioDto
+            {
+                Email = "string",
+                Senha = "string"
+            });
+    }
+}

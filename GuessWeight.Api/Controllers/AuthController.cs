@@ -20,7 +20,8 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<string>> Login(UsuarioDto usuario)
+    [Route("login/")]
+    public async Task<ActionResult<LoginRetornoUsuarioDto>> Login([FromBody] LoginUsuarioDto usuario)
     {
         var usuarioDb = await _usuarioRepository.GetUsuarioPorEmailESenha(usuario.Email, usuario.Senha);
         if (usuarioDb is null)
@@ -30,7 +31,13 @@ public class AuthController : ControllerBase
 
         var token = await _tokenRepository.GeneratorToken(usuarioDb);
 
-        return Ok(token);
+        return Ok(new LoginRetornoUsuarioDto
+        {
+            Email = usuarioDb.Email, 
+            Nome = usuarioDb.Nome,
+            ApiKey = token.ToString(),
+            Id = usuarioDb.Id
+        });
     }
 }
 
