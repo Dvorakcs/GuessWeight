@@ -22,4 +22,8 @@
     {
         
     }
+    protected override async void OnParametersSet()
+    {
+        StateHasChanged();
+    }
 }

@@ -19,8 +19,8 @@ namespace GuessWeight.Web.Services
 
         public async Task<SalaDto> EntrarSala(UsuarioEntraSalaDto usuarioEntraSalaDto)
         {          
-            
-           
+            var token = await ObterTokenDoLocalStorage();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var response = await _httpClient.PostAsJsonAsync<UsuarioEntraSalaDto>($"api/Sala/EntrarSala", usuarioEntraSalaDto);
             if (response.IsSuccessStatusCode)
             {
@@ -36,12 +36,16 @@ namespace GuessWeight.Web.Services
 
         public async Task<IEnumerable<SalaDto>> getSalaAll()
         {
+            var token = await ObterTokenDoLocalStorage();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             return await _httpClient.
                 GetFromJsonAsync<IEnumerable<SalaDto>>
                 ("api/sala/GetSalas") ?? new List<SalaDto> { };
         }
         public async Task<SalaDto> getSala(int Id)
-        {    
+        {
+            var token = await ObterTokenDoLocalStorage();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             return await _httpClient.
                 GetFromJsonAsync<SalaDto>
                 ($"api/sala/GetSala/{Id}");
