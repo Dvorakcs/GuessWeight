@@ -1,0 +1,24 @@
+﻿@page "/Auth"
+@inject IAuthServices authServices
+@inject IJSRuntime JSRuntime
+
+<h3>Auth</h3>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        var loginComplete = await authServices.Login(new LoginUsuarioDto
+            {
+                Email = "string",
+                Senha = "string"
+            });
+
+        SalvarTokenNoLocalStorage(loginComplete.ApiKey);
+    }
+    public async Task SalvarTokenNoLocalStorage(string token)
+    {
+        await JSRuntime.InvokeVoidAsync("localStorage.setItem", "jwtToken", token);
+    }
+
+    
+}

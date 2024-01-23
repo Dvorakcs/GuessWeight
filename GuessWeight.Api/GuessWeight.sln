@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuessWeight.Api", "GuessWeight.Api.csproj", "{03081E48-AD0A-42E9-A742-61032F0D0925}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuessWeight.Api", "GuessWeight.Api.csproj", "{03081E48-AD0A-42E9-A742-61032F0D0925}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuessWeight.Web", "..\GuessWeight.Web\GuessWeight.Web.csproj", "{152972AD-D097-4149-9ED7-8B32FFEA5E26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuessWeight.Library", "..\GuessWeight.Library\GuessWeight.Library.csproj", "{E42D1B0F-5735-4C04-A94F-11F3268C8E14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuessWeight.Library", "..\GuessWeight.Library\GuessWeight.Library.csproj", "{E42D1B0F-5735-4C04-A94F-11F3268C8E14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuessWeight.Web", "..\GuessWeight.Web\GuessWeight.Web\GuessWeight.Web.csproj", "{F221A91C-59BB-495C-974A-5C8C9FCBD938}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{03081E48-AD0A-42E9-A742-61032F0D0925}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03081E48-AD0A-42E9-A742-61032F0D0925}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03081E48-AD0A-42E9-A742-61032F0D0925}.Release|Any CPU.Build.0 = Release|Any CPU
-		{152972AD-D097-4149-9ED7-8B32FFEA5E26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{152972AD-D097-4149-9ED7-8B32FFEA5E26}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{152972AD-D097-4149-9ED7-8B32FFEA5E26}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{152972AD-D097-4149-9ED7-8B32FFEA5E26}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E42D1B0F-5735-4C04-A94F-11F3268C8E14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E42D1B0F-5735-4C04-A94F-11F3268C8E14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E42D1B0F-5735-4C04-A94F-11F3268C8E14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E42D1B0F-5735-4C04-A94F-11F3268C8E14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F221A91C-59BB-495C-974A-5C8C9FCBD938}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F221A91C-59BB-495C-974A-5C8C9FCBD938}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F221A91C-59BB-495C-974A-5C8C9FCBD938}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F221A91C-59BB-495C-974A-5C8C9FCBD938}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 
 namespace GuessWeight.Library.Models
 {
-    public class UsuarioDto
+    public class LoginRetornoUsuarioDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string? Nome { get; set; }
-        public string? Senha { get; set; }
-        public string? ConfirmaSenha { get; set; }
         public string? Email { get; set; }
-        public int? salaId {  get; set; }
-
+        public string? ApiKey { get; set; }
     }
 }

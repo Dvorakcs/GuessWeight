@@ -1,0 +1,18 @@
+﻿@page "/sala"
+@inject ISalaServices SalaServices
+
+<h3>Sala</h3>
+<ol class="list-group list-group-numbered">
+    @foreach (var sala in salas)
+    {
+        <ListaSalaComponent salaDto="@sala"></ListaSalaComponent>
+    }
+</ol>
+@code {
+    public IEnumerable<SalaDto> salas { get; set; }
+
+    protected override async Task OnInitializedAsync(){
+
+        salas = await SalaServices.getSalaAll();
+    }
+}
