@@ -8,7 +8,7 @@ using System.Net.WebSockets;
 
 namespace GuessWeight.Api.Controllers
 {
-    [Authorize]
+
     [Route("api/[controller]")]
     [ApiController]
     public class SalaController : ControllerBase

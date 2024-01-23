@@ -10,15 +10,16 @@ namespace GuessWeight.Web.Services
     public class SalaServices : ISalaServices
     {
         public HttpClient _httpClient;
-        public JSRuntime _runtime;
-        public SalaServices(HttpClient httpClient)
+        private readonly IJSRuntime _jsRuntime;
+        public SalaServices(HttpClient httpClient, IJSRuntime jsRuntime)
         {
             _httpClient = httpClient;
-        
+            _jsRuntime = jsRuntime;
         }
 
         public async Task<SalaDto> EntrarSala(UsuarioEntraSalaDto usuarioEntraSalaDto)
         {          
+            
            
             var response = await _httpClient.PostAsJsonAsync<UsuarioEntraSalaDto>($"api/Sala/EntrarSala", usuarioEntraSalaDto);
             if (response.IsSuccessStatusCode)
@@ -45,6 +46,9 @@ namespace GuessWeight.Web.Services
                 GetFromJsonAsync<SalaDto>
                 ($"api/sala/GetSala/{Id}");
         }
-     
+        public async Task<string> ObterTokenDoLocalStorage()
+        {
+            return await _jsRuntime.InvokeAsync<string>("localStorage.getItem", "jwtToken");
+        }
     }
 }
