@@ -73,9 +73,9 @@ builder.Services.AddDbContext<ConexaoDbContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("GuessWeightDb"));
 });
-
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+builder.Services.AddScoped<ISalaRepository, SalaRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -92,6 +92,7 @@ app.UseCors(policy =>
     AllowAnyHeader().
     WithHeaders(HeaderNames.ContentType);
 });
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

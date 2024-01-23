@@ -1,0 +1,19 @@
+﻿@page "/sala/{Id:int}"
+@inject ISalaServices services
+<h3>@sala.Nome</h3>
+<button @onclick=startGame>StartGame</button>
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    public SalaDto sala { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        sala = await services.getSala(Id);
+    }
+    public async Task startGame()
+    {
+        
+    }
+}

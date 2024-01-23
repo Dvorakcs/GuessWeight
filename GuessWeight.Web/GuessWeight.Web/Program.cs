@@ -10,5 +10,6 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 var baseURL = "https://localhost:7172";
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseURL) });
 builder.Services.AddScoped<IAuthServices,AuthServices>();
+builder.Services.AddScoped<ISalaServices,SalaServices>();
 
 await builder.Build().RunAsync();

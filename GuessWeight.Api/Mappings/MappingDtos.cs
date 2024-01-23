@@ -9,5 +9,6 @@ namespace GuessWeight.Api.Mappings
         {
             return new UsuarioDto();
         }
+      
     }
 }
