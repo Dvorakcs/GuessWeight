@@ -24,6 +24,21 @@ namespace GuessWeight.Api.Repositories
 
         public async Task<Sala> Delete(Sala Entity)
         {
+            _conexaoDbContext.Salas.Remove(Entity);
+            await _conexaoDbContext.SaveChangesAsync();
+            return Entity;
+        }
+        public async Task<Sala> Get(int id)
+        {
+            return await _conexaoDbContext.Salas.Where(sala => sala.Id == id).FirstOrDefaultAsync();
+        }
+        public async Task<IEnumerable<Sala>> GetAll()
+        {
+            return await _conexaoDbContext.Salas.ToListAsync();
+        }
+
+        public async Task<Sala> Update(Sala Entity)
+        {
             throw new NotImplementedException();
         }
 
@@ -41,26 +56,14 @@ namespace GuessWeight.Api.Repositories
 
             };
         }
-        public async Task<object> StartGame(Sala sala)
-        {
 
-            return new
-            {
-                objeto = "Elefante",
-                id = 1
-            };
-        }
-        public async Task<Sala> Get(int id)
-        {
-            return await _conexaoDbContext.Salas.Where(sala => sala.Id == id).FirstOrDefaultAsync();
-        }
         public async Task<SalaDto> GetSalaEUsuarios(int id)
         {
             List<UsuarioDto> usuario = await _conexaoDbContext.Usuarios.Where(usuario => usuario.SalaId == id)
                 .Select(usuario => new UsuarioDto
                 {
-                    Id=usuario.Id,
-                     Nome=usuario.Nome,
+                    Id = usuario.Id,
+                    Nome = usuario.Nome,
                 }).ToListAsync();
 
 
@@ -72,15 +75,6 @@ namespace GuessWeight.Api.Repositories
 
             }).FirstOrDefaultAsync();
 
-        }
-        public async Task<IEnumerable<Sala>> GetAll()
-        {
-            return await _conexaoDbContext.Salas.ToListAsync();
-        }
-
-        public async Task<Sala> Update(Sala Entity)
-        {
-            throw new NotImplementedException();
         }
     }
 }
