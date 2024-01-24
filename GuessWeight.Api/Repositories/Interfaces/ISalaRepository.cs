@@ -6,6 +6,6 @@ namespace GuessWeight.Api.Repositories.Interfaces
     public interface ISalaRepository:IRepositoryGenerics<Sala>
     {
         Task<SalaDto> EntrarSala(Sala sala, Usuario usuario);
-        Task<SalaDto> GetSalaEUsuarios(int id);
+        Task<SalaDto> GetSalaEUsuarios(int id);    
     }
 }

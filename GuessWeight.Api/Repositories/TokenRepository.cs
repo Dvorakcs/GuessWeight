@@ -31,10 +31,8 @@ namespace GuessWeight.Api.Repositories
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(TokenConfig);
             var tokenWrite = tokenHandler.WriteToken(token);
-            return new
-            {
-                Token = tokenWrite
-            };
+            return tokenWrite;
+            
         }
     }
 }

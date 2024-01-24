@@ -1,5 +1,6 @@
 ﻿@inject ISalaServices salaServices
 @inject NavigationManager navigationManager
+@inject IJSRuntime jSRuntime
 <li class="list-group-item d-flex justify-content-between align-items-start">
    
     <div class="ms-2 me-auto">
@@ -15,10 +16,11 @@
 
     public async Task Onclick()
     {
+        var usuarioId = await jSRuntime.InvokeAsync<string>("localStorage.getItem", "UsuarioId");
         var entrou = await salaServices.EntrarSala(new UsuarioEntraSalaDto
             {
                 SalaId = salaDto.Id,
-                UsuarioId = 1
+                UsuarioId = int.Parse(usuarioId)
             });
 
         if (entrou is not null)
@@ -26,4 +28,6 @@
             navigationManager.NavigateTo($"/sala/{salaDto.Id}");
         }
     }
+
+
 }

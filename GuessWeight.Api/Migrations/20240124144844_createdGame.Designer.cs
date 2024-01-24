@@ -3,6 +3,7 @@ using GuessWeight.Api.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GuessWeight.Api.Migrations
 {
     [DbContext(typeof(ConexaoDbContext))]
-    partial class ConexaoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240124144844_createdGame")]
+    partial class createdGame
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,9 +32,6 @@ namespace GuessWeight.Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Finaliza")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -40,8 +40,9 @@ namespace GuessWeight.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("ObjetoPeso")
-                        .HasColumnType("float");
+                    b.Property<string>("ObjetoPeso")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SalaId")
                         .HasColumnType("int");
@@ -51,9 +52,6 @@ namespace GuessWeight.Api.Migrations
 
                     b.Property<int>("UsuarioWinId")
                         .HasColumnType("int");
-
-                    b.Property<string>("UsuarioWinNome")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -129,8 +127,9 @@ namespace GuessWeight.Api.Migrations
                     b.Property<int>("GameId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Resposta")
-                        .HasColumnType("float");
+                    b.Property<string>("Resposta")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UsuarioId")
                         .HasColumnType("int");
