@@ -1,0 +1,40 @@
+﻿@page "/Games/{Id:int}"
+@inject ISalaServices SalaService
+@inject IJSRuntime jSRuntime
+@inject NavigationManager navigationManager
+<h3>Game @Id</h3>
+
+   <div class="m-auto">
+            <div class="card text-center" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@gameDto.ObjetoNome</h5>
+                    <input type="text" class="form-control" @bind="@PesoKg" placeholder="Peso Kg" aria-label="Peso" aria-describedby="basic-addon1">
+                    <a href="#" @onclick="EnviaPeso" class="btn btn-primary">Enviar Resposta</a>
+                </div>
+            </div>
+   </div>
+@code {
+    [Parameter]
+    public int Id{ get; set; }
+    public GameDto gameDto { get; set; }
+    public double PesoKg { get; set; }
+    protected override  async Task OnInitializedAsync()
+    {
+        gameDto = await SalaService.GetGame(Id);
+    }
+    private async Task EnviaPeso()
+    {
+        var usuarioId = await jSRuntime.InvokeAsync<string>("localStorage.getItem", "UsuarioId");
+
+        SalaService.EnviaResposta(new UsuarioRespostaPesoDto
+            {
+                EnviouResposta = true,
+                GameId = Id,
+                UsuarioId = int.Parse(usuarioId),
+                Resposta = PesoKg,
+            });
+
+        navigationManager.NavigateTo($"FinalizaGame/{Id}");
+    }
+}

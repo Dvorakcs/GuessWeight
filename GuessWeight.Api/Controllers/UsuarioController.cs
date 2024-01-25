@@ -3,17 +3,20 @@ using GuessWeight.Api.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using GuessWeight.Library.Models;
 using Microsoft.AspNetCore.Authorization;
+using GuessWeight.Api.Repositories;
 namespace GuessWeight.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        private readonly IUsuarioRepository usuarioRepository;
+        private readonly IUsuarioRepository _usuarioRepository;
+        private readonly IUsuarioRespostaPesoRepository _usuarioRespostaPesoRepository;
 
-        public UsuarioController(IUsuarioRepository usuarioRepository)
+        public UsuarioController(IUsuarioRepository usuarioRepository, IUsuarioRespostaPesoRepository usuarioRespostaPesoRepository)
         {
-            this.usuarioRepository = usuarioRepository;
+            this._usuarioRepository = usuarioRepository;
+            this._usuarioRespostaPesoRepository = usuarioRespostaPesoRepository;
         }
 
 
@@ -30,14 +33,14 @@ namespace GuessWeight.Api.Controllers
             {
                 return Ok("Senhas devem ser iguais");
             }
-            var Usuario = await usuarioRepository.GetUsuarioPorEmailESenha(usuario.Email);
+            var Usuario = await _usuarioRepository.GetUsuarioPorEmailESenha(usuario.Email);
 
             if (Usuario is not null)
             {
                 return Ok("Usuario com Email ja existente");
             }
 
-            var usuarioCreate = await usuarioRepository.Create(new Usuario
+            var usuarioCreate = await _usuarioRepository.Create(new Usuario
             {
                  Email = usuario.Email,
                  Nome = usuario.Nome,
@@ -55,12 +58,22 @@ namespace GuessWeight.Api.Controllers
         [Route("GetUsuario")]
         public async Task<ActionResult<UsuarioDto>> GetUsuario(int Id)
         {      
-           var usuario = await this.usuarioRepository.Get(Id);
+           var usuario = await this._usuarioRepository.Get(Id);
             if (usuario is null)
             {
                 return NotFound("Usuario nao existe");
             }
             return Ok(usuario);
         }
+
+        [HttpPost]
+        [Route("RespostaUsuarioGame")]
+        public async Task<ActionResult> RespostaUsuarioGame(UsuarioRespostaPeso usuarioRespostaPeso)
+        {
+            await _usuarioRespostaPesoRepository.Update(usuarioRespostaPeso);
+            return Ok("resposta Enviada com sucesso");
+
+        }
+
     }
 }

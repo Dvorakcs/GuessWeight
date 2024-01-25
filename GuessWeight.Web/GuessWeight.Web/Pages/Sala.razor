@@ -1,0 +1,31 @@
+﻿@page "/sala/{Id:int}"
+@inject ISalaServices services
+@inject NavigationManager navigation
+<h3>@sala.Nome</h3>
+<ol class="list-group list-group-numbered">
+    @foreach (var usuario in sala.Usuarios)
+    {
+        <ListaUsuarioSalaComponent UsuarioDto="@usuario"></ListaUsuarioSalaComponent>
+    }
+</ol>
+<button @onclick=startGame>StartGame</button>
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    public SalaDto sala { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        sala = await services.getSala(Id);
+    }
+    public async Task startGame()
+    {
+        var gameDto = await services.StartGame(Id);
+        navigation.NavigateTo($"/Games/{gameDto.Id}");
+    }
+    protected override async void OnParametersSet()
+    {
+        StateHasChanged();
+    }
+}

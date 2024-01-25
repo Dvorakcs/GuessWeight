@@ -74,6 +74,12 @@ builder.Services.AddDbContext<ConexaoDbContext>(opt =>
 
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+<<<<<<< Updated upstream
+=======
+builder.Services.AddScoped<ISalaRepository, SalaRepository>();
+builder.Services.AddScoped<IGameRepository, GameRepository>();
+builder.Services.AddScoped<IUsuarioRespostaPesoRepository, UsuarioRepostaPesoRepository>();
+>>>>>>> Stashed changes
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
