@@ -3,6 +3,7 @@ using GuessWeight.Api.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GuessWeight.Api.Migrations
 {
     [DbContext(typeof(ConexaoDbContext))]
-    partial class ConexaoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240122200142_salamodel")]
+    partial class salamodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,45 +23,6 @@ namespace GuessWeight.Api.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("GuessWeight.Api.Entities.Game", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("Finaliza")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ObjetoNome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("ObjetoPeso")
-                        .HasColumnType("float");
-
-                    b.Property<int>("SalaId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("StartGame")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("UsuarioWinId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UsuarioWinNome")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Games");
-                });
 
             modelBuilder.Entity("GuessWeight.Api.Entities.Sala", b =>
                 {
@@ -113,31 +77,6 @@ namespace GuessWeight.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
-                });
-
-            modelBuilder.Entity("GuessWeight.Api.Entities.UsuarioRespostaPeso", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("EnviouResposta")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Resposta")
-                        .HasColumnType("float");
-
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UsuarioRepostasPeso");
                 });
 #pragma warning restore 612, 618
         }

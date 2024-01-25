@@ -1,0 +1,33 @@
+﻿@inject ISalaServices salaServices
+@inject NavigationManager navigationManager
+@inject IJSRuntime jSRuntime
+<li class="list-group-item d-flex justify-content-between align-items-start">
+   
+    <div class="ms-2 me-auto">
+        <div class="fw-bold">Segundos por Round: @salaDto.QuantidadeTempo</div>
+        @salaDto.Nome
+    </div>
+    <span class="badge bg-primary rounded-pill">@salaDto.QuantidadePartida</span>
+   <button @onclick="Onclick">entrar Sala</button>
+</li>
+@code {
+    [Parameter]
+    public SalaDto salaDto { get; set; }
+
+    public async Task Onclick()
+    {
+        var usuarioId = await jSRuntime.InvokeAsync<string>("localStorage.getItem", "UsuarioId");
+        var entrou = await salaServices.EntrarSala(new UsuarioEntraSalaDto
+            {
+                SalaId = salaDto.Id,
+                UsuarioId = int.Parse(usuarioId)
+            });
+
+        if (entrou is not null)
+        {
+            navigationManager.NavigateTo($"/sala/{salaDto.Id}");
+        }
+    }
+
+
+}

@@ -23,7 +23,9 @@ namespace GuessWeight.Api.Repositories
 
         public async Task<Usuario> Delete(Usuario Entity)
         {
-            throw new NotImplementedException();
+            _conexaoDbContext.Usuarios.Remove(Entity);
+            await _conexaoDbContext.SaveChangesAsync();
+            return Entity;
         }
 
         public async Task<Usuario> Get(int id)
@@ -33,27 +35,26 @@ namespace GuessWeight.Api.Repositories
 
         public async Task<IEnumerable<Usuario>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _conexaoDbContext.Usuarios.ToListAsync();
+        }
+
+        public async Task<Usuario> Update(Usuario Entity)
+        {
+            var usuarioresp = _conexaoDbContext.Usuarios.Update(Entity);
+            await _conexaoDbContext.SaveChangesAsync();
+            return usuarioresp.Entity;
         }
 
         public async Task<Usuario> GetUsuarioPorEmailESenha(string EmailUsuario, string? SenhaUsuario)
         {
             if (SenhaUsuario is not null)
             {
-                return await _conexaoDbContext.Usuarios.Where(usuario => usuario.Email == EmailUsuario && 
+                return await _conexaoDbContext.Usuarios.Where(usuario => usuario.Email == EmailUsuario &&
                                                               usuario.Senha == SenhaUsuario).FirstOrDefaultAsync();
             }
             return await _conexaoDbContext.Usuarios.Where(usuario => usuario.Email == EmailUsuario).FirstOrDefaultAsync();
         }
 
-        public async Task<Usuario> Login(string EmailUsuario, string SenhaUsuario)
-        {
-            throw new NotImplementedException();
-        }
 
-        public async Task<Usuario> Update(Usuario Entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

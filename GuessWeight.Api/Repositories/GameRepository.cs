@@ -56,7 +56,8 @@ namespace GuessWeight.Api.Repositories
             };
 
             await _conexaoDbContext.Games.AddAsync(game);
-            
+            await _conexaoDbContext.SaveChangesAsync();
+
             foreach (var item in usuario)
             {
                 await _conexaoDbContext.UsuarioRepostasPeso.AddAsync(new UsuarioRespostaPeso
@@ -74,30 +75,30 @@ namespace GuessWeight.Api.Repositories
             var game = await _conexaoDbContext.Games.Where(game => game.Id == gameId).FirstOrDefaultAsync();
             if(game.Finaliza is false)
             {
-                var respostas = await _conexaoDbContext.UsuarioRepostasPeso.Where(resposta => resposta.GameId == game.Id).ToListAsync();
-                bool todosResponderam = true;
+            var respostas = await _conexaoDbContext.UsuarioRepostasPeso.Where(resposta => resposta.GameId == game.Id).ToListAsync();
+            bool todosResponderam = true;
                 if (respostas.Count() > 0)
+            {
+                foreach (var item in respostas)
                 {
-                    foreach (var item in respostas)
+                    if (item.EnviouResposta == false)
                     {
-                        if (item.EnviouResposta == false)
-                        {
-                            todosResponderam = false;
-                        }
+                        todosResponderam = false;
                     }
-
-                    if (todosResponderam is true)
-                    {
-                        var usuarioWin = respostas.OrderBy(resposta => Math.Abs(resposta.Resposta - game.ObjetoPeso)).First();
-
-                        game.UsuarioWinId = usuarioWin.Id;
-                        game.Finaliza = true;
-                        _conexaoDbContext.Games.Update(game);
-                        await _conexaoDbContext.SaveChangesAsync();
-                        return game;
-                    };
-
                 }
+
+                if (todosResponderam is true)
+                {
+                    var usuarioWin = respostas.OrderBy(resposta => Math.Abs(resposta.Resposta - game.ObjetoPeso)).First();
+
+                    game.UsuarioWinId = usuarioWin.Id;
+                    game.Finaliza = true;
+                    _conexaoDbContext.Games.Update(game);
+                    await _conexaoDbContext.SaveChangesAsync();
+                    return game;
+                };
+
+            }
 
             }
 

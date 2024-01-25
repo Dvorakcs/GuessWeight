@@ -56,6 +56,7 @@ namespace GuessWeight.Api.Controllers
         }
         [HttpPost]
         [Route("GetUsuario")]
+        [Authorize]
         public async Task<ActionResult<UsuarioDto>> GetUsuario(int Id)
         {      
            var usuario = await this._usuarioRepository.Get(Id);
