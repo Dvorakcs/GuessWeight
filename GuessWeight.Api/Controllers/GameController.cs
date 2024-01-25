@@ -47,7 +47,7 @@ namespace GuessWeight.Api.Controllers
                 throw;
             }
         }
-        [HttpGet]
+        [HttpPost]
         [Route("FinalizarJogo")]
         public async Task<ActionResult<GameDto>> FinalizarJogo([FromBody]int gameId)
         {
@@ -90,6 +90,15 @@ namespace GuessWeight.Api.Controllers
 
                 throw;
             }
+        }
+
+        [HttpGet]
+        [Route("GetVencedor")]
+        public async Task<ActionResult<Game>> GetVencedor(int gameId)
+        {
+            var gameFinalizado = await _gameRepository.Vencedor(gameId);
+            return Ok(gameFinalizado);
+
         }
     }
 }

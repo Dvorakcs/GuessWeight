@@ -40,7 +40,12 @@ namespace GuessWeight.Api.Repositories
 
         public async Task<UsuarioRespostaPeso> Update(UsuarioRespostaPeso Entity)
         {
-            var usuarioresp =  _conexaoDbContext.UsuarioRepostasPeso.Update(Entity);
+            var usuariorespostaPeso = _conexaoDbContext.UsuarioRepostasPeso.Where(usureppeso => usureppeso.GameId == Entity.GameId &&
+                                                                                    usureppeso.UsuarioId == Entity.UsuarioId).FirstOrDefault();
+            usuariorespostaPeso.EnviouResposta = Entity.EnviouResposta;
+            usuariorespostaPeso.Resposta = Entity.Resposta;
+           
+            var usuarioresp =  _conexaoDbContext.UsuarioRepostasPeso.Update(usuariorespostaPeso);
             await _conexaoDbContext.SaveChangesAsync();
             return usuarioresp.Entity;
         }

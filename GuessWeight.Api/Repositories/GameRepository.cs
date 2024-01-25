@@ -91,8 +91,9 @@ namespace GuessWeight.Api.Repositories
                 {
                     var usuarioWin = respostas.OrderBy(resposta => Math.Abs(resposta.Resposta - game.ObjetoPeso)).First();
 
-                    game.UsuarioWinId = usuarioWin.Id;
-                    game.Finaliza = true;
+                    game.UsuarioWinId = usuarioWin.UsuarioId;
+                    game.UsuarioWinNome = _conexaoDbContext.Usuarios.Where(us => us.Id == usuarioWin.UsuarioId).Select(us => us.Nome).FirstOrDefault();
+                        game.Finaliza = true;
                     _conexaoDbContext.Games.Update(game);
                     await _conexaoDbContext.SaveChangesAsync();
                     return game;

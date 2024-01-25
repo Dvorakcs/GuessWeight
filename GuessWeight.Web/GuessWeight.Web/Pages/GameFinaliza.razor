@@ -1,29 +1,46 @@
 ﻿@page "/FinalizaGame/{Id:int}"
 @inject ISalaServices salaService
-<h3>@gameDto.Finaliza</h3>
 
+@if (gameDto.Finaliza)
+{
+    <h3>@gameDto.Finaliza</h3>
+    <h3>@gameDto.UsuarioWinNome</h3>
+}
+else
+{
+    <h3>false</h3>
+}
 @code {
 
     [Parameter]
     public int Id{ get; set; }
+    [Parameter]
     public GameDto gameDto { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-         await salaService.FinalizaGame(Id);
-
-
-         UpdateGame();
+        await salaService.FinalizaGame(Id);
+        gameDto = await salaService.GetGame(Id);
     }
-
-    public async void UpdateGame()
+    protected override async void OnParametersSet()
     {
         gameDto = await salaService.GetGame(Id);
+        StateHasChanged();
+    }
 
-        if (gameDto.Finaliza is false)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        while (!gameDto.Finaliza)
         {
-             UpdateGame();
+            await UpdateGame();
+            StateHasChanged();
+            await Task.Delay(1000);
         }
+    }
+    public async Task UpdateGame()
+    {
+        await salaService.FinalizaGame(Id);
+        gameDto = await salaService.GetGame(Id);
 
     }
 }

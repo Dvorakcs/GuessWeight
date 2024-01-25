@@ -92,31 +92,6 @@ namespace GuessWeight.Api.Controllers
             return Ok(salaDb);
         }
 
-        [HttpPost]
-        [Route("StartGame")]
-        public async Task<ActionResult<Game>> StartGame(int salaId)
-        {
-            var sala = await _Salarepository.Get(salaId);
-            var game = await _Salarepository.CreateGame(sala);
-            return Ok(game);
-          
-        }
-        [HttpPost]
-        [Route("RespostaUsuarioGame")]
-        public async Task<ActionResult<Game>> RespostaUsuarioGame(UsuarioRespostaPeso usuarioRespostaPeso)
-        {
-            await _Salarepository.CreateResposta(usuarioRespostaPeso);
-            return Ok("resposta Enviada com sucesso");
 
-        }
-
-        [HttpGet]
-        [Route("GetVencedor")]
-        public async Task<ActionResult<Game>> GetVencedor(int gameId)
-        {
-            var gameFinalizado = await _Salarepository.Vencedor(gameId);
-            return Ok(gameFinalizado);
-
-        }
     }
 }
