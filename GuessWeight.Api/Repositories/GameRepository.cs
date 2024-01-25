@@ -13,29 +13,35 @@ namespace GuessWeight.Api.Repositories
         {
             _conexaoDbContext = conexaoDbContext;
         }
-        public Task<Game> Create(Game Entity)
+        public async Task<Game> Create(Game Entity)
         {
-            throw new NotImplementedException();
+            await _conexaoDbContext.Games.AddAsync(Entity);
+            await _conexaoDbContext.SaveChangesAsync();
+            return Entity;
         }
 
-        public Task<Game> Delete(Game Entity)
+        public async Task<Game> Delete(Game Entity)
         {
-            throw new NotImplementedException();
+            _conexaoDbContext.Games.Remove(Entity);
+            await _conexaoDbContext.SaveChangesAsync();
+            return Entity;
         }
 
-        public Task<Game> Get(int id)
+        public async Task<Game> Get(int id)
         {
-            throw new NotImplementedException();
+            return await _conexaoDbContext.Games.Where(game => game.Id == id).FirstOrDefaultAsync();
         }
 
-        public Task<IEnumerable<Game>> GetAll()
+        public async Task<IEnumerable<Game>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _conexaoDbContext.Games.ToListAsync();
         }
 
-        public Task<Game> Update(Game Entity)
+        public async Task<Game> Update(Game Entity)
         {
-            throw new NotImplementedException();
+            var usuarioresp = _conexaoDbContext.Games.Update(Entity);
+            await _conexaoDbContext.SaveChangesAsync();
+            return usuarioresp.Entity;
         }
 
         public async Task<Game> CreateGame(Sala sala)
@@ -67,9 +73,11 @@ namespace GuessWeight.Api.Repositories
         public async Task<Game> Vencedor(int gameId)
         {
             var game = await _conexaoDbContext.Games.Where(game => game.Id == gameId).FirstOrDefaultAsync();
+            if(game.Finaliza is false)
+            {
             var respostas = await _conexaoDbContext.UsuarioRepostasPeso.Where(resposta => resposta.GameId == game.Id).ToListAsync();
             bool todosResponderam = true;
-            if (respostas is not null)
+                if (respostas.Count() > 0)
             {
                 foreach (var item in respostas)
                 {
@@ -89,6 +97,8 @@ namespace GuessWeight.Api.Repositories
                     await _conexaoDbContext.SaveChangesAsync();
                     return game;
                 };
+
+            }
 
             }
 

@@ -1,7 +1,21 @@
 ﻿@page "/"
-
+@inject IJSRuntime jSRuntime
 <PageTitle>Home</PageTitle>
+@if (usuarioId is null)
+{
+    <Auth></Auth>
+}
+else
+{
+   <h1>Home</h1>
 
-<h1>Hello, world!</h1>
+   <Salas></Salas>
+}
 
-Welcome to your new app.
+@code{
+    private string usuarioId{ get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        usuarioId  = await jSRuntime.InvokeAsync<string>("localStorage.getItem", "UsuarioId");
+    }
+}

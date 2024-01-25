@@ -33,7 +33,22 @@ namespace GuessWeight.Web.Services
             }
             return default(SalaDto);
         }
+        public async Task<GameDto> StartGame(int SalaId)
+        {
+            var token = await ObterTokenDoLocalStorage();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await _httpClient.PostAsJsonAsync<int>($"api/Game/IniciaJogo", SalaId);
+            if (response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode is HttpStatusCode.NoContent)
+                {
 
+                }
+
+                return await response.Content.ReadFromJsonAsync<GameDto>();
+            }
+            return default(GameDto);
+        }
         public async Task<IEnumerable<SalaDto>> getSalaAll()
         {
             var token = await ObterTokenDoLocalStorage();
@@ -49,6 +64,46 @@ namespace GuessWeight.Web.Services
             return await _httpClient.
                 GetFromJsonAsync<SalaDto>
                 ($"api/sala/GetSala/{Id}");
+        }
+        public async Task<GameDto> GetGame(int Id)
+        {
+            var token = await ObterTokenDoLocalStorage();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            return await _httpClient.
+                GetFromJsonAsync<GameDto>
+                ($"api/game/GetGame/{Id}");
+        }
+        public async Task EnviaResposta(UsuarioRespostaPesoDto usuarioRespostaPesoDto)
+        {
+
+            var token = await ObterTokenDoLocalStorage();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await _httpClient.PostAsJsonAsync<UsuarioRespostaPesoDto>($"api/Usuario/RespostaUsuarioGame", usuarioRespostaPesoDto);
+            if (response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode is HttpStatusCode.NoContent)
+                {
+
+                }
+
+            }
+            
+        }
+        public async Task FinalizaGame(int Id)
+        {
+
+            var token = await ObterTokenDoLocalStorage();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await _httpClient.PostAsJsonAsync<int>($"api/Game/FinalizarJogo", Id);
+            if (response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode is HttpStatusCode.NoContent)
+                {
+
+                }
+
+            }
+
         }
         public async Task<string> ObterTokenDoLocalStorage()
         {

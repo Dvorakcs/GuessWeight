@@ -39,7 +39,9 @@ namespace GuessWeight.Api.Repositories
 
         public async Task<Sala> Update(Sala Entity)
         {
-            throw new NotImplementedException();
+            var usuarioresp = _conexaoDbContext.Salas.Update(Entity);
+            await _conexaoDbContext.SaveChangesAsync();
+            return usuarioresp.Entity;
         }
 
         public async Task<SalaDto> EntrarSala(Sala sala, Usuario usuario)

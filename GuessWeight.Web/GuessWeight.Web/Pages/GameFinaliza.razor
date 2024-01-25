@@ -1,0 +1,29 @@
+﻿@page "/FinalizaGame/{Id:int}"
+@inject ISalaServices salaService
+<h3>@gameDto.Finaliza</h3>
+
+@code {
+
+    [Parameter]
+    public int Id{ get; set; }
+    public GameDto gameDto { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+         await salaService.FinalizaGame(Id);
+
+
+         UpdateGame();
+    }
+
+    public async void UpdateGame()
+    {
+        gameDto = await salaService.GetGame(Id);
+
+        if (gameDto.Finaliza is false)
+        {
+             UpdateGame();
+        }
+
+    }
+}

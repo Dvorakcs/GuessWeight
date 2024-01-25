@@ -1,7 +1,7 @@
 ﻿@page "/Auth"
 @inject IAuthServices authServices
 @inject IJSRuntime JSRuntime
-
+@inject NavigationManager navigationManager
 <h3>Auth</h3>
 <div class="input-group flex-nowrap">
   <span class="input-group-text" id="addon-wrapping"></span>
@@ -23,6 +23,7 @@
                 });
 
             SalvarTokenNoLocalStorage(loginComplete.ApiKey, loginComplete.Id.Value);
+            navigationManager.NavigateTo("/");
         }
     }
     protected override async Task OnInitializedAsync()

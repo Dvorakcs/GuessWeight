@@ -4,5 +4,6 @@ namespace GuessWeight.Api.Repositories.Interfaces
 {
     public interface IUsuarioRespostaPesoRepository:IRepositoryGenerics<UsuarioRespostaPeso>
     {
+
     }
 }
