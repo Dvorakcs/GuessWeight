@@ -27,10 +27,29 @@
     </main>
 </div>
 @code{
+    [Parameter]
     public UsuarioDto usuarioDto { get; set; }
+    [Parameter]
+    public string usuarioId { get; set; }
     protected override async Task OnInitializedAsync()
     {
-        var usuarioId = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", "UsuarioId");
+        usuarioId = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", "UsuarioId");
         usuarioDto = await salaService.GetUsuario(int.Parse(usuarioId));
+    }
+    protected override async void OnParametersSet()
+    {
+        usuarioId = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", "UsuarioId");
+        if (usuarioId != null)
+        {
+            
+            usuarioDto = await salaService.GetUsuario(int.Parse(usuarioId));
+        }
+        else
+        {
+            usuarioDto = null;
+        }
+
+
+        StateHasChanged();
     }
 }
