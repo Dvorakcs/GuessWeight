@@ -1,12 +1,24 @@
 ﻿@inherits LayoutComponentBase
+@inject IJSRuntime _jsRuntime
+@inject ISalaServices salaService
 <div class="page">
-    <div class="sidebar">
+    <div>
         <NavMenu />
     </div>
 
     <main>
         <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+            <a href="/">Home</a>
+            <a href="" >Sala</a>
+            @if (usuarioDto is not null)
+            {
+                <a href="/usuarios/@usuarioDto.Id">@usuarioDto.Nome</a>
+                <a href="/logOut">LogOut</a>
+
+            }else{
+                <a href="/Auth">Login</a>
+            }
+            
         </div>
 
         <article class="content px-4">
@@ -14,3 +26,11 @@
         </article>
     </main>
 </div>
+@code{
+    public UsuarioDto usuarioDto { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        var usuarioId = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", "UsuarioId");
+        usuarioDto = await salaService.GetUsuario(int.Parse(usuarioId));
+    }
+}

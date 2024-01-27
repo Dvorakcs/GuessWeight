@@ -73,6 +73,14 @@ namespace GuessWeight.Web.Services
                 GetFromJsonAsync<GameDto>
                 ($"api/game/GetGame/{Id}");
         }
+        public async Task<UsuarioDto> GetUsuario(int Id)
+        {
+            var token = await ObterTokenDoLocalStorage();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            return await _httpClient.
+                GetFromJsonAsync<UsuarioDto>
+                ($"api/Usuario/GetUsuario/{Id}");
+        }
         public async Task EnviaResposta(UsuarioRespostaPesoDto usuarioRespostaPesoDto)
         {
 

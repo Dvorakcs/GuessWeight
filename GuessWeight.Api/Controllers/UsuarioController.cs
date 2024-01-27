@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using GuessWeight.Api.Repositories;
 namespace GuessWeight.Api.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class UsuarioController : ControllerBase
@@ -54,9 +55,8 @@ namespace GuessWeight.Api.Controllers
 
             return Ok(Usuario);
         }
-        [HttpPost]
-        [Route("GetUsuario")]
-        [Authorize]
+        [HttpGet]
+        [Route("GetUsuario/{Id}")]
         public async Task<ActionResult<UsuarioDto>> GetUsuario(int Id)
         {      
            var usuario = await this._usuarioRepository.Get(Id);

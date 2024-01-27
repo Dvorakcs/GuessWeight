@@ -22,7 +22,7 @@
                     Senha = Senha
                 });
 
-            SalvarTokenNoLocalStorage(loginComplete.ApiKey, loginComplete.Id.Value);
+            await SalvarTokenNoLocalStorage(loginComplete.ApiKey, loginComplete.Id.Value);
             navigationManager.NavigateTo("/");
         }
     }
