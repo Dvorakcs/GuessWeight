@@ -22,15 +22,11 @@
                     Senha = Senha
                 });
 
-            SalvarTokenNoLocalStorage(loginComplete.ApiKey, loginComplete.Id.Value);
+            await SalvarTokenNoLocalStorage(loginComplete.ApiKey, loginComplete.Id.Value);
             navigationManager.NavigateTo("/");
         }
     }
-    protected override async Task OnInitializedAsync()
-    {
-        
-       
-    }
+
     public async Task SalvarTokenNoLocalStorage(string token, int usuarioId)
     {
         await JSRuntime.InvokeVoidAsync("localStorage.setItem", "jwtToken", token);

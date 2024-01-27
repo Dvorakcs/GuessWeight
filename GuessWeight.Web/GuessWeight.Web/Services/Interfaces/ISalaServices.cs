@@ -11,5 +11,6 @@ namespace GuessWeight.Web.Services.Interfaces
         Task<GameDto> GetGame(int Id);
         Task EnviaResposta(UsuarioRespostaPesoDto usuarioRespostaPesoDto);
         Task FinalizaGame(int Id);
+        Task<UsuarioDto> GetUsuario(int Id);
     }
 }
