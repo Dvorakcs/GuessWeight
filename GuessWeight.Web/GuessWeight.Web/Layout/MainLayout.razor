@@ -1,13 +1,21 @@
 ﻿@inherits LayoutComponentBase
+@inject IJSRuntime _jsRuntime
 <div class="page">
     <main>
         <h5>GuessWeight</h5>
         <article class="content px-4">
-            <NavMenu />
+            @if(usuarioId is not null){
+                <NavMenu />
+            }
             @Body
         </article>
     </main>
 </div>
 @code{
-
+    public string usuarioId { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        usuarioId = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", "UsuarioId");
+      
+    }
 }
