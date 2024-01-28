@@ -1,0 +1,8 @@
+﻿Salas {
+    overflow: auto;
+    scrollbar-width: thin; /* Adiciona barras de rolagem mais finas no Firefox */
+    scrollbar-color: darkgray lightgray;
+    display:flex;
+    flex-direction:column;
+    justify-items:center;
+}

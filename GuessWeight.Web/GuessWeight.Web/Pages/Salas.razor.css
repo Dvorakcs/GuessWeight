@@ -1,0 +1,46 @@
+﻿h4{
+    text-align:center;
+    margin-top:15px;
+    margin-bottom:15px;
+    color:#8f159f;
+}
+.list-group {
+    display: flex;
+    flex-direction: column;
+    height: 60%;
+    align-items: stretch;
+    overflow: auto;
+    scrollbar-width: none; /* Adiciona barras de rolagem mais finas no Firefox */
+    
+}
+.list-group::-webkit-scrollbar {
+        width: 0.5em; /* Largura do scrollbar vertical */
+    }
+
+    .list-group::-webkit-scrollbar-track {
+        background-color: transparent; /* Cor de fundo da trilha do scrollbar */
+    }
+
+    .list-group::-webkit-scrollbar-thumb {
+        background-color: transparent; /* Cor do thumb (alça) do scrollbar */
+    }
+
+button {
+    margin-top: 20px;
+    border: none;
+    height: 33px;
+    color: white;
+    background: #e710e3;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+    border-radius: 10px;
+    width: 98%;
+}
+
+.containerSalas {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    
+}

@@ -3,7 +3,7 @@
 @inject IJSRuntime JSRuntime
 @inject NavigationManager navigationManager
 <h3>Auth</h3>
-<div class="input-group flex-nowrap">
+<div class="input-group flex-nowrap w-50 align-middle align-content-center">
   <span class="input-group-text" id="addon-wrapping"></span>
     <input type="text" class="form-control" @bind="Email" placeholder="Email" aria-label="Email" aria-describedby="addon-wrapping">
     <input type="text" class="form-control" @bind="Senha" placeholder="Senha" aria-label="Senha" aria-describedby="addon-wrapping">
@@ -23,7 +23,7 @@
                 });
 
             await SalvarTokenNoLocalStorage(loginComplete.ApiKey, loginComplete.Id.Value);
-            navigationManager.NavigateTo("/");
+            navigationManager.NavigateTo("/",true);
         }
     }
 

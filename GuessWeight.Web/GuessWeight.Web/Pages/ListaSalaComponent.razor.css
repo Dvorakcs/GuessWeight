@@ -1,0 +1,28 @@
+﻿.list-group-item {
+    margin-bottom: 15px;
+    display:flex;
+    flex-direction:row;
+    height: 90px;
+    background: #e710e3;
+   
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+    border-radius: 10px;
+}
+button {
+    border: none;
+    height:33px;
+    color:white;
+    background: #e710e3;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+    border-radius: 10px;
+}
+h4{
+    color:white;
+}
+h5 {
+    color: white;
+    font-size:12px;
+}

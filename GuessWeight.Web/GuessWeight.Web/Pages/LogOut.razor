@@ -8,6 +8,6 @@
     {
         await JSRuntime.InvokeVoidAsync("localStorage.removeItem", "jwtToken");
         await JSRuntime.InvokeVoidAsync("localStorage.removeItem", "UsuarioId");
-        navigationManager.NavigateTo("/");
+        navigationManager.NavigateTo("/",true);
     }
 }
