@@ -1,13 +1,17 @@
 ﻿@page "/sala"
 @inject ISalaServices SalaServices
 
-<h3>Sala</h3>
-<ol class="list-group list-group-numbered">
-    @foreach (var sala in salas)
-    {
-        <ListaSalaComponent salaDto="@sala"></ListaSalaComponent>
-    }
-</ol>
+<h4>Salas</h4>
+<div class="containerSalas">
+    <ol class="list-group list-group-numbered">
+        @foreach (var sala in salas)
+        {
+            <ListaSalaComponent salaDto="@sala"></ListaSalaComponent>
+        }
+    </ol>
+
+    <button>Criar Sala</button>
+</div>
 @code {
     public IEnumerable<SalaDto> salas { get; set; }
 

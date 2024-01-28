@@ -7,9 +7,10 @@
 }
 else
 {
-   <h1>Home</h1>
 
    <Salas></Salas>
+   
+   
 }
 
 @code{
@@ -17,5 +18,11 @@ else
     protected override async Task OnInitializedAsync()
     {
         usuarioId  = await jSRuntime.InvokeAsync<string>("localStorage.getItem", "UsuarioId");
+    }
+
+    protected override async void OnParametersSet()
+    {
+            
+        StateHasChanged();
     }
 }

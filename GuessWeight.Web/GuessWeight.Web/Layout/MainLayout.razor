@@ -1,55 +1,13 @@
 ﻿@inherits LayoutComponentBase
-@inject IJSRuntime _jsRuntime
-@inject ISalaServices salaService
 <div class="page">
-    <div>
-        <NavMenu />
-    </div>
-
     <main>
-        <div class="top-row px-4">
-            <a href="/">Home</a>
-            <a href="" >Sala</a>
-            @if (usuarioDto is not null)
-            {
-                <a href="/usuarios/@usuarioDto.Id">@usuarioDto.Nome</a>
-                <a href="/logOut">LogOut</a>
-
-            }else{
-                <a href="/Auth">Login</a>
-            }
-            
-        </div>
-
+        <h5>GuessWeight</h5>
         <article class="content px-4">
+            <NavMenu />
             @Body
         </article>
     </main>
 </div>
 @code{
-    [Parameter]
-    public UsuarioDto usuarioDto { get; set; }
-    [Parameter]
-    public string usuarioId { get; set; }
-    protected override async Task OnInitializedAsync()
-    {
-        usuarioId = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", "UsuarioId");
-        usuarioDto = await salaService.GetUsuario(int.Parse(usuarioId));
-    }
-    protected override async void OnParametersSet()
-    {
-        usuarioId = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", "UsuarioId");
-        if (usuarioId != null)
-        {
-            
-            usuarioDto = await salaService.GetUsuario(int.Parse(usuarioId));
-        }
-        else
-        {
-            usuarioDto = null;
-        }
 
-
-        StateHasChanged();
-    }
 }
