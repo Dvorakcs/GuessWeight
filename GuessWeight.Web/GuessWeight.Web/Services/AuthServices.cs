@@ -28,5 +28,20 @@ namespace GuessWeight.Web.Services
             }
             return default(LoginRetornoUsuarioDto);
         }
+
+        public async Task<LoginRetornoUsuarioDto> Create(UsuarioDto usuarioDto)
+        {
+            var response = await _httpClient.PostAsJsonAsync<UsuarioDto>($"api/Usuario/CriarUsuario", usuarioDto);
+            if (response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode is HttpStatusCode.NoContent)
+                {
+                    return default(LoginRetornoUsuarioDto);
+                }
+
+                return await response.Content.ReadFromJsonAsync<LoginRetornoUsuarioDto>();
+            }
+            return default(LoginRetornoUsuarioDto);
+        }
     }
 }

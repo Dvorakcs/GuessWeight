@@ -1,0 +1,38 @@
+﻿@page "/signup"
+@inject IAuthServices authServices
+@inject IJSRuntime JSRuntime
+@inject NavigationManager navigationManager
+
+<div class="container-input">
+    <h3>SingUp</h3>
+    <input type="text" class="form-control" @bind="Nome" placeholder="Nome" aria-label="Nome" aria-describedby="addon-wrapping">
+    <input type="text" class="form-control" @bind="Email" placeholder="Email" aria-label="Email" aria-describedby="addon-wrapping">
+    <input type="text" class="form-control" @bind="Senha" placeholder="Senha" aria-label="Senha" aria-describedby="addon-wrapping">
+    <input type="text" class="form-control" @bind="SenhaConfirma" placeholder="Senha Confirma" aria-label="Senha" aria-describedby="addon-wrapping">
+    <button class="btn-login" @onclick="Create">Create</button>
+</div>
+
+@code {
+    private string Nome;
+    private string Email;
+    private string Senha;
+    private string SenhaConfirma;
+    public async Task Create()
+    {
+        if (Email is not null && Senha is not null)
+        {
+            var loginComplete = await authServices.Create(new UsuarioDto
+                {
+                    Email = Email,
+                    Senha = Senha,
+                    ConfirmaSenha = SenhaConfirma,
+                    Nome = Nome,
+                     
+                });
+
+            
+            navigationManager.NavigateTo("/", true);
+        }
+    }
+
+}

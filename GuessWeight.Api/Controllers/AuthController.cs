@@ -39,5 +39,27 @@ public class AuthController : ControllerBase
             Id = usuarioDb.Id
         });
     }
+
+    [HttpPost]
+    [Route("create/")]
+    public async Task<ActionResult<LoginRetornoUsuarioDto>> Create([FromBody]UsuarioDto usuario)
+    {
+        var usuarioDb = await _usuarioRepository.GetUsuarioPorEmailESenha(usuario.Email);
+        if (usuarioDb is not null)
+        {
+            return BadRequest("Usuario Ja existe");
+        }
+        //var usuarioDb = await _usuarioRepository.GetUsuarioPorEmailESenha(usuario.Email, usuario.Senha);
+
+        var token = await _tokenRepository.GeneratorToken(usuarioDb);
+
+        return Ok(new LoginRetornoUsuarioDto
+        {
+            Email = usuarioDb.Email,
+            Nome = usuarioDb.Nome,
+            ApiKey = token.ToString(),
+            Id = usuarioDb.Id
+        });
+    }
 }
 

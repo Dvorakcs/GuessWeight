@@ -9,7 +9,7 @@
     <input type="text" class="form-control" @bind="Senha" placeholder="Senha" aria-label="Senha" aria-describedby="addon-wrapping">
     <button class="btn-login" @onclick="Login">Login</button>
     <div class="btns-LoginAccount">
-        <button class="btn-sign">Sign up</button>
+        <button class="btn-sign" @onclick="() => { navigationManager.NavigateTo(signup);}">Sign up</button>
         <a>Forgot the password</a>
     </div>
 </div>
@@ -17,6 +17,7 @@
 @code {
     private string Email;
     private string Senha;
+    private string signup = "/signup";
     public async Task Login()
     {
         if (Email is not null && Senha is not null)
