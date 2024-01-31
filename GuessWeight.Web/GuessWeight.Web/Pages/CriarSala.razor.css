@@ -1,0 +1,51 @@
+﻿.container-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.form-control {
+    width: 90%;
+    margin-bottom: 15px;
+}
+
+.btn-login {
+    margin-top: 20px;
+    border: none;
+    height: 40px;
+    color: white;
+    background: #e710e3;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+    border-radius: 10px;
+    width: 90%;
+}
+
+.btns-LoginAccount {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: baseline;
+    color: white;
+}
+
+h3 {
+    color: white;
+    text-align: center;
+    margin: 10px;
+}
+
+.btn-sign {
+    margin-top: 20px;
+    border: 1px solid #e710e3;
+    height: 40px;
+    border-radius: 16px;
+    color: white;
+    background-color: transparent;
+    width: 40%;
+}

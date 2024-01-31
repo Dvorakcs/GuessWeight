@@ -6,12 +6,12 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-
-    background: #e60ae2f8;
+    background: rgb(0, 0, 0);
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
     backdrop-filter: blur( 13.5px );
     -webkit-backdrop-filter: blur( 13.5px );
-    border-radius: 16px;
+    border-radius: 10px;
+    border: 1px solid rgb(255, 255, 255, 0,81);
 }
 a{
     color:white;

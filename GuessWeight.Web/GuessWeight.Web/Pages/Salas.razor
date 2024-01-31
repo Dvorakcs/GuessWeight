@@ -1,6 +1,6 @@
 ﻿@page "/sala"
 @inject ISalaServices SalaServices
-
+@inject NavigationManager navigationManager
 <h4>Salas</h4>
 <div class="containerSalas">
     <ol class="list-group list-group-numbered">
@@ -10,11 +10,12 @@
         }
     </ol>
 
-    <button>Criar Sala</button>
+    <button @onclick="() => {navigationManager.NavigateTo(criaSala);}">Criar Sala</button>
 </div>
 @code {
     public IEnumerable<SalaDto> salas { get; set; }
 
+    private string criaSala = "/criasala";
     protected override async Task OnInitializedAsync(){
 
         salas = await SalaServices.getSalaAll();

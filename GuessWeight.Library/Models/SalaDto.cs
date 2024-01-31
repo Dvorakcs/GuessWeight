@@ -13,6 +13,6 @@ namespace GuessWeight.Library.Models
         public string Senha { get; set; }
         public int QuantidadePartida { get; set; }
         public int QuantidadeTempo { get; set; }
-       public List<UsuarioDto>? Usuarios { get; set; }
+        public List<UsuarioDto>? Usuarios { get; set; }
     }
 }
