@@ -1,0 +1,40 @@
+﻿@page "/criasala"
+@inject ISalaServices salaService
+@inject IJSRuntime jSRuntime
+@inject NavigationManager navigationManager
+<div class="container-input">
+    <h3>Criar Sala</h3>
+    <input type="text" class="form-control" @bind="Nome" placeholder="Nome" aria-label="Nome" aria-describedby="addon-wrapping">
+    <input type="text" class="form-control" @bind="Senha" placeholder="Senha" aria-label="Email" aria-describedby="addon-wrapping">
+    <input type="text" class="form-control" @bind="QuantidadeTempo" placeholder="QuantidadeTempo" aria-label="Senha" aria-describedby="addon-wrapping">
+    <input type="text" class="form-control" @bind="QuantidadePartida" placeholder="QuantidadePartida" aria-label="Senha" aria-describedby="addon-wrapping">
+    <button class="btn-login" @onclick="Create">Create</button>
+</div>
+@code {
+    public string Nome { get; set; }
+    public string Senha { get; set; }
+    public string QuantidadeTempo { get; set; }
+    public string QuantidadePartida { get; set; }
+    public string usuarioId { get; set; }
+    public SalaDto salaDto { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        usuarioId = await jSRuntime.InvokeAsync<string>("localStorage.getItem", "UsuarioId");
+    }
+    public async Task Create()
+    {
+        salaDto = await salaService.CreateSala(new CreateSala
+        {
+             SalaDto = new SalaDto
+            {
+                 Nome = Nome,
+                  Senha = Senha,
+                 QuantidadeTempo = int.Parse(QuantidadeTempo),
+                 QuantidadePartida = int.Parse(QuantidadePartida)
+            },
+                usuarioIdAdmin = int.Parse(usuarioId)
+        });
+
+        navigationManager.NavigateTo($"/sala/{salaDto.Id}");
+    }
+}

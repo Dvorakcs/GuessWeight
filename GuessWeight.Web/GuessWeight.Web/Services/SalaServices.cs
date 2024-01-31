@@ -33,6 +33,22 @@ namespace GuessWeight.Web.Services
             }
             return default(SalaDto);
         }
+        public async Task<SalaDto> CreateSala(CreateSala salaDto)
+        {
+            var token = await ObterTokenDoLocalStorage();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await _httpClient.PostAsJsonAsync<CreateSala>($"api/Sala/CriarSala", salaDto);
+            if (response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode is HttpStatusCode.NoContent)
+                {
+
+                }
+
+                return await response.Content.ReadFromJsonAsync<SalaDto>();
+            }
+            return default(SalaDto);
+        }
         public async Task<GameDto> StartGame(int SalaId)
         {
             var token = await ObterTokenDoLocalStorage();
